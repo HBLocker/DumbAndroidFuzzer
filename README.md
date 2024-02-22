@@ -20,7 +20,7 @@ covering the crash, afetr we send our service call, to the wifi stack, we can se
 ```
 Now if the Javascript code is then reviewed this can be traced to the following paramaters of the JS object. 
 
-
+https://source.android.com/static/docs/core/architecture/images/wifi-components.png
 ##  WifiEnterpriseConfig.copyFrom(android.net.wifi.WifiEnterpriseConfig, boolean, java.lang.String)
 
 The following function requires three main paramaters, these consist of
