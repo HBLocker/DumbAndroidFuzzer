@@ -6,7 +6,9 @@ I was needing a break form IOS and MACos so I deviced to focous on Android  bugs
 
 ![Android Stack](https://source.android.com/static/images/android-stack.svg)
 
-We can se that the services are on a good level and can possibly deliver some bugs if we fuzz them, the idea was spawned from this write up on obtaining lpe on Andorid but the code provided was vauge, so I wrote the service fuzzer, the research took around 40/50 hours to do, as there was a lot of trial and error. 
+Service call layout:
+$ adb shell SERVICENAME 
+
 
 Covering the crash, afetr we send our service call, to the wifi stack, we can see the following crash, if we continie to spam the device with the packets after the null pointer it then shuts off the device and causes a reboot, for some reason I do not know why. But this is what it does. It has since been patched and can be seen here[] as patched, I may have submitted it the wrong way to the Android team, I thought if you posted directly on thier bugs some bugs could get noticed by the security team where this is not the case, I then had to then re report the bug to product security and hopefully, this meets the critiria for a CVE as it does cause a dos in the system due to a NPE.
 
@@ -105,3 +107,7 @@ The mfields are used as a hash reprensetation of the keys used for authenticatio
 
 
 https://issuetracker.google.com/issues/326278126
+
+
+
+
