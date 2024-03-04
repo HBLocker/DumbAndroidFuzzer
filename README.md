@@ -1,16 +1,18 @@
 # Silly calls and silly bugs 
 
-bugs in android that cause a dos. 
+bugs in android that cause a Denial Of Service in Android Runtime. I needed a break form IOS and mac so I decided to hop back into Android as it is cool! After some reading and about 50 hours of research into Android I got a few crashes, most are OOM which cause the same issue but are less interesting. Though do I report them as they do cause a device crash as it uses all of the memory by making one service call to a different componant. 
 
-I was needing a break form IOS and MACos so I deviced to focous on Android  bugs and a way to find them, this lead me down a rabit hole about service calls. In this write up, I will cover service calls, and a null defefferecne which leads to the device shutting off once sent via abd to the device. 
+
+Andorid is made up of many componants as shown below there are sevreal vectors, I chose service calls as they where low level enough to hopefully get some bugs. 
 
 ![Android Stack](https://source.android.com/static/images/android-stack.svg)
 
 Service call layout:
-$ adb shell SERVICENAME 
+$ adb shell SERVICENAME values, int 64, float, string, int 32 
+The idea is simple, randomize these calls, creating a dumb fuzzer. 
 
 
-Covering the crash, afetr we send our service call, to the wifi stack, we can see the following crash, if we continie to spam the device with the packets after the null pointer it then shuts off the device and causes a reboot, for some reason I do not know why. But this is what it does. It has since been patched and can be seen here[] as patched, I may have submitted it the wrong way to the Android team, I thought if you posted directly on thier bugs some bugs could get noticed by the security team where this is not the case, I then had to then re report the bug to product security and hopefully, this meets the critiria for a CVE as it does cause a dos in the system due to a NPE.
+Covering the crash, afetr we send our service call, to the wifi stack, we can see the following crash, if we continie to spam the device with the packets after the null pointer it then shuts off the device and causes a reboot, for some reason I do not know why. But this is what it does. It has since been patched and can be seen [here](https://issuetracker.google.com/issues/326278126) issue 326278126 in AOSP as patched, I may have submitted it the wrong way to the Android team, I thought if you posted directly on thier bugs some bugs could get noticed by the security team where this is not the case, I then had to then re report the bug to product security and hopefully, this meets the critiria for a CVE as it does cause a dos in the system due to a NPE.
 
 ```bash
 $ adb adb shell service call wifi 113
@@ -103,10 +105,6 @@ enterpriseConfig.mFields.put(key, value);
 ```
 The mfields are used as a hash reprensetation of the keys used for authentication in the WifiEnterpriseConfig which would make sense as there needs to be some form of verification/attistation for WIFI. By giving this a null or simply call the service without any other stages for authentication will simpaly trigger the defrffrence, though this could be triggered ina real situation, if just a null object was passed to the device when it is searching for wifi. 
 
-
-
-
-https://issuetracker.google.com/issues/326278126
 
 
 
