@@ -1,6 +1,12 @@
 # Silly calls and silly bugs 
 
-bugs in Android that cause a Denial Of Service in Android Runtime. I needed a break from IOS and Mac so I decided to hop back into Android as it is cool! After some reading and about 50 hours of research into Android, I got a few crashes, most are OOM which causes the same issue but is less interesting. However, do I report them as they do cause a device crash as it uses all of the memory by making one service call to a different component?
+The idea stems from fuzzing random values of a service and seeing what crashes. Most crashes are OOM and can be seen to be reported here to ASOP:
+
+https://issuetracker.google.com/issues/327111285
+
+https://issuetracker.google.com/issues/326278126
+
+
 
 
 Android is made up of many components as shown below there are several vectors, I chose service calls as they were low-level enough to hopefully get some bugs. 
